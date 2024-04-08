@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Mail\Invitation;
+use App\Models\Invite;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -11,25 +10,20 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Validation\Rules;
 
-class RegisteredUserController extends Controller
+class RegisteredInvitedUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.register');
+        $token = request('token');
+
+        $invitation = Invite::where('token', $token)->first();
+
+        return view('auth.register-invited') ->with('invitation', $invitation);
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -38,11 +32,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
-        session(['userData' => json_encode($request->toArray())]);
-
-        if(empty($request->role)) {
-
-            $user = User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -51,13 +41,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-            Auth::login($user);
-            return redirect(RouteServiceProvider::HOME);
-        }
-
-        //Auth::login($user);
-        return redirect()->route('invite');
-
+        Auth::login($user);
+        return redirect(RouteServiceProvider::HOME);
 
     }
 }

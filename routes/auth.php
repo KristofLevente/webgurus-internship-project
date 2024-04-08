@@ -9,12 +9,20 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ClinicProgramController;
 use App\Http\Controllers\InviteController;
+use App\Http\Controllers\RegisteredInvitedUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
+
+    Route::get('register-invited/{token}', [RegisteredInvitedUserController::class, 'create'])
+        ->name('register-invited');
+
+    Route::post('register-invited', [RegisteredInvitedUserController::class, 'store'])
+        ->name('register-invited.store');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
@@ -35,8 +43,12 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 
-    Route::get('invite', [InviteController::class,'create'])
-                ->name('invite');
+    Route::get('clinic-program', [ClinicProgramController::class, 'create'])
+        ->name('clinic-program');
+
+    Route::post('clinic-program', [ClinicProgramController::class, 'store'])
+        ->name('clinic-program.store');
+
 
 });
 
