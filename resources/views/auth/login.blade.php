@@ -41,7 +41,7 @@
             </div>
 
             <div class="text-sm leading-6">
-                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Ai uitat parola?</a>
+                <a href="{{ route('password.request') }}" class="font-semibold text-indigo-600 hover:text-indigo-500">Ai uitat parola?</a>
             </div>
         </div>
 
