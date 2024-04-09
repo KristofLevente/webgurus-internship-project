@@ -43,13 +43,11 @@ class ClinicProgramController extends Controller
                     'role' => $invitation['role'],
                     'token' => Str::random(50),
                 ];
-            })->all();
-
-            $inv = $request->user()->invites()->createMany($invitations);
-
-            collect($inv)->map(function ($invitation){
-                Notification::send($invitation, new InvitationNotification());
             });
+
+            $invites = $request->user()->invites()->createMany($invitations);
+
+            Notification::send($invites, new InvitationNotification());
 
         }
 
