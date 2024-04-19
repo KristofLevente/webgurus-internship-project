@@ -21,16 +21,16 @@ class ChartWidget implements WidgetInterface
     }
     public function getAppointmentsChartData($filter, $flag): array
     {
-        $data = Auth::user()->appointments()->selectRaw($filter['interval'].'(appointment_date_begin) as time, COUNT(*) as count');
+        $data = Auth::user()->appointments()->selectRaw($filter['interval'].'(date_begin) as time, COUNT(*) as count');
 
         if($flag === 'current') {
-            $appointments = $data->where('appointment_date_begin', '>', Carbon::now()->subMonths($filter['value']))
-                ->where('appointment_date_begin', '<', Carbon::now()->startOfMonth());
+            $appointments = $data->where('date_begin', '>', Carbon::now()->subMonths($filter['value']))
+                ->where('date_begin', '<', Carbon::now()->startOfMonth());
         }
 
         if($flag === 'previous'){
-            $appointments = $data->where('appointment_date_begin', '<', Carbon::now()->startOfMonth()->subMonths($filter['value']))
-                ->where('appointment_date_begin', '>', Carbon::now()->subMonths(2*$filter['value']));
+            $appointments = $data->where('date_begin', '<', Carbon::now()->startOfMonth()->subMonths($filter['value']))
+                ->where('date_begin', '>', Carbon::now()->subMonths(2*$filter['value']));
         }
 
         $appointments = $appointments->groupBy('time')->orderBy('time', 'asc')->get()->toArray();

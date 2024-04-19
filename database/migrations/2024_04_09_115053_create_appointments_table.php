@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('patient_id')->constrained('patients')->cascadeOnDelete();
             $table->string('service_type');
-            $table->dateTime('appointment_date_begin');
-            $table->dateTime('appointment_date_end');
-            $table->string('appointment_type');
+            $table->dateTime('date_begin');
+            $table->dateTime('date_end');
+            $table->string('type');
             $table->string('status')->default('pending');
             $table->timestamps();
         });

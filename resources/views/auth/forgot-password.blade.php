@@ -20,13 +20,11 @@
         </div>
 
         <div class="flex items-center block justify-center mt-4">
-{{--            <x-primary-button>--}}
-{{--                {{ __('Trimite') }}--}}
-{{--            </x-primary-button>--}}
-            <x-primary-button  type="submit" class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Trimite</x-primary-button>
+
+            <x-primary-button  type="submit" class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ __('Trimite') }}</x-primary-button>
         </div>
     </form>
     <div class="text-sm mt-10 text-center leading-6">
-        <a href="{{ route('login') }}" class="font-semibold text-indigo-600 hover:text-indigo-500"> <- Inapoi la autentificare</a>
+        <a href="{{ route('login') }}" class="font-semibold text-indigo-600 hover:text-indigo-500"> {{ __('<- Inapoi la autentificare') }} </a>
     </div>
 </x-guest-layout>

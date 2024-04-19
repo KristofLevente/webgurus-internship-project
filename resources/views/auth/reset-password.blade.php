@@ -16,9 +16,9 @@
 
         <!-- Email Address -->
         <div>
-{{--            <x-input-label for="email" :value="__('Email')" />--}}
+
             <x-text-input id="email" class="block mt-1 w-full" type="hidden" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-{{--            <x-input-error :messages="$errors->get('email')" class="mt-2" />--}}
+
         </div>
 
         <!-- Password -->
@@ -47,6 +47,6 @@
     </form>
 
     <div class="text-sm mt-10 text-center leading-6">
-        <a href="{{ route('login') }}" class="font-semibold text-indigo-600 hover:text-indigo-500"> <- Inapoi la autentificare</a>
+        <a href="{{ route('login') }}" class="font-semibold text-indigo-600 hover:text-indigo-500"> {{ __('<- Inapoi la autentificare') }}</a>
     </div>
 </x-guest-layout>

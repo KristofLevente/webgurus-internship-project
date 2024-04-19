@@ -11,7 +11,7 @@ class UpcomingAppointmentsWidget implements WidgetInterface
     {
         return Auth::user()->appointments()
             ->where('status', 'accepted')
-            ->where('appointment_date_begin', '>', now())
+            ->where('date_begin', '>', now())
             ->count();
     }
 }

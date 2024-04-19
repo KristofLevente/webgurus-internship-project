@@ -29,30 +29,30 @@ class NextAppointmentWidget implements WidgetInterface
     {
         return Auth::user()->appointments()
             ->where('status', 'accepted')
-            ->where('appointment_date_begin', '>', now())
-            ->orderBy('appointment_date_begin', 'asc')->first();
+            ->where('date_begin', '>', now())
+            ->orderBy('date_begin', 'asc')->first();
     }
 
     public function getNextAppointmentText(Appointment $appointment): string
     {
         Carbon::setLocale('ro');
-        return Carbon::parse($appointment->appointment_date_begin)->translatedFormat('F d');
+        return Carbon::parse($appointment->date_begin)->translatedFormat('F d');
     }
 
     public function getNextAppointmentDayName(Appointment $appointment): string
     {
         Carbon::setLocale('ro');
-        return Carbon::parse($appointment->appointment_date_begin)->dayName;
+        return Carbon::parse($appointment->date_begin)->dayName;
     }
 
     public function getNextAppointmentHourBegin(Appointment $appointment): string
     {
-        return Carbon::parse($appointment->appointment_date_begin)->format('H:i');
+        return Carbon::parse($appointment->date_begin)->format('H:i');
     }
 
     public function getNextAppointmentHourEnd(Appointment $appointment): string
     {
-        return Carbon::parse($appointment->appointment_date_end)->format('H:i');
+        return Carbon::parse($appointment->date_end)->format('H:i');
     }
 
     public function getNextAppointmentServiceType(Appointment $appointment): string
@@ -62,6 +62,6 @@ class NextAppointmentWidget implements WidgetInterface
 
     public function getPatientNameOfAppointment(Appointment $appointment): string
     {
-        return $appointment->patient->patient_name;
+        return $appointment->patient->name;
     }
 }
