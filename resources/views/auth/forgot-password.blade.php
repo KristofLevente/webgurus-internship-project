@@ -1,6 +1,9 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    <div class="mb-4 text-center text-2xl text-gray-900">
+        {{ __('Ati uitat parola?') }}
+    </div>
+    <div class="mb-4 text-center text-m text-gray-600">
+        {{ __('Introduceti adresa de email pe care ati utilizat la creareacontului dvs., iar noi va vom trimite un link pentru resetarea parolei') }}
     </div>
 
     <!-- Session Status -->
@@ -16,10 +19,12 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <div class="flex items-center block justify-center mt-4">
+
+            <x-primary-button  type="submit" class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ __('Trimite') }}</x-primary-button>
         </div>
     </form>
+    <div class="text-sm mt-10 text-center leading-6">
+        <a href="{{ route('login') }}" class="font-semibold text-indigo-600 hover:text-indigo-500"> {{ __('<- Inapoi la autentificare') }} </a>
+    </div>
 </x-guest-layout>

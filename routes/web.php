@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClinicProgramController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\ProfileController;
@@ -24,15 +26,23 @@ Route::get('/clinic-program', function () {
     return view('auth.clinic-program');
 })->name('clinic-program');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::get('invite', [InviteController::class,'create'])
     ->name('invite');
 
 Route::post('invite', [InviteController::class, 'store'])
     ->name('invite.store');
+
+Route::post('/dashboard', [DashboardController::class,'index'])
+    ->name('index');
+
+
+Route::get('/appointments', [AppointmentController::class,'create'])
+    ->name('appointment.create');
+
 
 
 
